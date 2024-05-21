@@ -28,3 +28,72 @@ def create_tour(tourName: str, tourDescription: str, tourCategory: str):
 
     # return the message
     return message
+
+# query the database for the tour name by the tourID
+def get_tour_name(tourID: str):
+    # create a connection to the database
+    connection = connect("./instance/sqlite.db")
+    cursor = connection.cursor()
+
+    # get the tour name from the database by the tourID. if the query result is empty, return message
+    cursor.execute("SELECT tourName FROM tours WHERE tourID=?", (tourID,))
+    tourName = cursor.fetchone()
+    if tourName == None:
+        return "No tour found"
+
+    # close the connection
+    connection.close()
+
+    # set the message to the tour name
+    message = tourName[0]
+    
+
+    # return the message
+    return message
+
+# get tourIDs by name search
+def get_tourIDs_by_name(tourName: str):
+    # create a connection to the database
+    connection = connect("./instance/sqlite.db")
+    cursor = connection.cursor()
+
+    # query the tourIDs from the database by the tourName using a similar search. if the query result is empty, return message
+    cursor.execute("SELECT tourID, tourName FROM tours WHERE tourName LIKE ?", (f"%{tourName}%",))
+    tourIDs = cursor.fetchall()
+    if tourIDs == []:
+        return "No tours found"
+
+    # close the connection
+    connection.close()
+
+    # set the message to a json of the tourName and tourIDs
+    message = []
+    for t in tourIDs:
+        message.append({"tourID": t[0], "tourName": t[1]})
+    
+
+    # return the message
+    return message
+
+# delete a tour by the tourID
+def delete_tour(tourID: str):
+    # create a connection to the database
+    connection = connect("./instance/sqlite.db")
+    cursor = connection.cursor()
+
+    # delete the tour from the database by the tourID. if something fails set the message to 'failt to delete tour'
+    try:
+        cursor.execute("DELETE FROM tours WHERE tourID=?", (tourID,))
+    except:
+        return "Failed to delete tour"
+
+    # commit the changes and close the connection
+    connection.commit()
+    connection.close()
+
+    # set the message to the tourID
+    message = f"Tour {tourID} deleted successfully"
+    
+
+    # return the message
+    return message
