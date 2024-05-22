@@ -10,6 +10,7 @@ class NewTour(BaseModel):
     tourCategory: str
 
 #----POST new tour--------------------------------------
+#include a file upload url
 @router.post("/new_tour/")
 def new_tour(newTour: NewTour):
     message = tours.create_tour(newTour.tourName, newTour.tourDescription, newTour.tourCategory)

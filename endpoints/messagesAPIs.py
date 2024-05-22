@@ -22,3 +22,9 @@ def new_message(newMessage: NewMessage):
 def get_messages_by_conversationID(conversationID: str):
     message = messages.get_messages_by_conversationID(conversationID)
     return message
+
+# create a post request to search pinecone for similar messages
+@router.post("/search_pinecone/")
+def search_pinecone(sourceID: str, query: str):
+    message = messages.search_pinecone(sourceID, query)
+    return message
