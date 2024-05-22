@@ -21,14 +21,14 @@ def get_tour_name(tourID: str):
     message = tours.get_tour_name(tourID)
     return message
 
-#----DELETE tour by tourID----------------------
-@router.delete("/delete_tour/")
-def delete_tour(tourID: str):
-    tours.delete_tour(tourID)
-    return {"message": f"Tour {tourID} deleted successfully"}
-
 #----GET tour ID by name----------------------------
 @router.get("/get_tourID_by_name/")
 def get_tourIDs_by_name(tourName: str):
     message = tours.get_tourIDs_by_name(tourName)
     return message
+
+#----DELETE tour by tourID----------------------
+@router.delete("/delete_tour/")
+def delete_tour(tourID: str):
+    tours.delete_tour(tourID)
+    return {"message": f"Tour {tourID} deleted successfully"}

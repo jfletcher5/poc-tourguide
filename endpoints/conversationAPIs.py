@@ -17,6 +17,11 @@ def new_conversation(newConversation: NewConversation):
     return message
 
 
+#----GET all conversations by userID----------------------------
+@router.get("/get_conversations_by_userID/", description="Get all conversations by userID", name='get conversations by userID')
+def get_conversations_by_userID(userID: str):
+    message = conversations.get_conversations_by_userID(userID)
+    return message
 
 #----GET conversation name from conversationID------------------
 @router.get("/get_conversation_name/")
@@ -31,9 +36,3 @@ def delete_conversation(conversationID: str):
     conversations.delete_conversation(conversationID)
     return {"message": f"Conversation {conversationID} deleted successfully"}
 
-
-#----GET all conversations by userID----------------------------
-@router.get("/get_conversations_by_userID/", description="Get all conversations by userID", name='get conversations by userID')
-def get_conversations_by_userID(userID: str):
-    message = conversations.get_conversations_by_userID(userID)
-    return message
