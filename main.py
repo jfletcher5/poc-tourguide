@@ -6,6 +6,8 @@ import logging
 import shutil
 from datetime import datetime
 from typing import Optional
+from fastapi.responses import FileResponse
+from services.create_embeddings import create_embeddings_for_pdf
 
 
 # create the fastapi app
@@ -18,3 +20,4 @@ app.include_router(messagesAPIs.router, tags=["Messages"], prefix="/messages")
 app.include_router(userAPIs.router, tags=["Users"], prefix="/users")
 
 
+create_embeddings_for_pdf("testpdf", "bostonfacts.pdf")
