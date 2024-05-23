@@ -4,14 +4,16 @@ from web.db.models import Conversation
 
 
 
-
 # instert a new record in to the conversations table in the sqlite3 database. input variables will be userID, tourID, and conversationName
-def create_conversation(userID: str, tourID: str):
+def create_conversation(userID: str, tourID: str, app_config):
 
     # create a new Conversation model to use
     conversation = Conversation.create(user_id=userID, pdf_id=tourID)
 
+
     return conversation.as_dict()
+
+
 #----------------------------------------------------------------------------------------
 # get the conversation name from the conversationID
 def get_conversation_name(conversationID: str):
@@ -34,6 +36,8 @@ def get_conversation_name(conversationID: str):
 
     # return the message
     return message
+
+
 #----------------------------------------------------------------------------------------
 # delete a conversation from the database by the conversationID
 def delete_conversation(conversationID: str):
@@ -48,6 +52,8 @@ def delete_conversation(conversationID: str):
     # commit the changes and close the connection
     connection.commit()
     connection.close()
+
+
 #----------------------------------------------------------------------------------------
 # get all conversations by the userID
 def get_conversations_by_userID(userID: str):

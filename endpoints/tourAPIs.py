@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, File, UploadFile
 from pydantic import BaseModel
 from services import tours
 
@@ -33,3 +33,14 @@ def get_tourIDs_by_name(tourName: str):
 def delete_tour(tourID: str):
     tours.delete_tour(tourID)
     return {"message": f"Tour {tourID} deleted successfully"}
+
+#----upload a file to create a tour--------------------------------------
+@router.post("/upload_file/")
+def upload_file(file: UploadFile = File(...)):
+    #store file in tours folder
+    with open(f"./tours/{file.filename}", "wb") as f:
+        f.write(file.file.read())
+
+    tours.create_embeddings_with_pdf(f"./tours/{file.filename}")
+    
+    return {"filename": file.filename}

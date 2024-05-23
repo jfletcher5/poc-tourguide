@@ -1,5 +1,16 @@
 from sqlite3 import connect
 from uuid import uuid4
+from services.create_embeddings import create_embeddings_for_pdf
+
+
+
+#----------------------------------------------------------------------------------------
+# create service to consume a filename string and run create_embeddings_for_pdf
+def create_embeddings_with_pdf(filename: str):
+    
+    create_embeddings_for_pdf(f"{filename} NAME", filename)
+
+    return {"message": f"Embeddings for {filename} created successfully"}
 
 # insert a new record in to the tours table in the sqlite3 database. input variables will be tourName, tourDescription, and tourCategory
 def create_tour(tourName: str, tourDescription: str, tourCategory: str):
