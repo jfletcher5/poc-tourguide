@@ -2,6 +2,7 @@ from fastapi import FastAPI, APIRouter
 from pydantic import BaseModel
 from services import messages
 
+
 router = APIRouter()
 
 # create class for new message
@@ -25,6 +26,31 @@ def get_messages_by_conversationID(conversationID: str):
 
 # create a post request to search pinecone for similar messages
 @router.post("/search_pinecone/")
-def search_pinecone(sourceID: str, query: str):
-    message = messages.search_pinecone(sourceID, query)
-    return message
+def search_pinecone(sourceID: str, input: str):
+    input = input
+    streaming = False
+
+    pdf = sourceID
+
+    chat_args = ChatArgs(
+        conversation_id="123",
+        pdf_id=sourceID,
+        streaming=streaming,
+        metadata={
+            "conversation_id": "123",
+            "user_id": "user",
+            "pdf_id": sourceID,
+        },
+    )
+
+    chat = build_chat(chat_args)
+
+    if not chat:
+        return "Chat not yet implemented!"
+
+    if streaming:
+        return Response(
+            stream_with_context(chat.stream(input)), mimetype="text/event-stream"
+        )
+    else:
+        return jsonify({"role": "assistant", "content": chat.run(input)})

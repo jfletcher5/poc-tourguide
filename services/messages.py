@@ -1,6 +1,6 @@
 from sqlite3 import connect
 from uuid import uuid4
-from vector_stores.pinecone import build_retriever
+from chat_services.vector_stores.pinecone import build_retriever
 
 # instert a new record in to the messages table in the sqlite3 database. input variables will be role, content, and conversationID
 def create_message(role: str, content: str, conversationID: str):
@@ -61,7 +61,7 @@ def get_messages_by_conversationID(conversationID: str):
 def search_pinecone(sourceID: str, query: str):
     # ise the vector store pinecone as a retriever to search for similar messages
     retriever = build_retriever(sourceID)
-    
+
 
 
     

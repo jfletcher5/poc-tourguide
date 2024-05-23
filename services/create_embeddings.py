@@ -7,8 +7,8 @@ from langchain.text_splitter import CharacterTextSplitter
 from langchain_community.embeddings import OpenAIEmbeddings
 from langchain_community.document_loaders import TextLoader, PyPDFLoader
 from langchain_community.vectorstores import Pinecone
-from vector_stores.pinecone import vector_store
-from embeddings.openai import embeddings
+from chat_services.vector_stores.pinecone import vector_store
+from chat_services.embeddings.openai import embeddings
 
 
 def create_embeddings_for_pdf(pdf_id: str, pdf_path: str):
