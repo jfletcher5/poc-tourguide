@@ -1,35 +1,17 @@
 from sqlite3 import connect
 from uuid import uuid4
+from web.db.models import Conversation
+
 
 
 
 # instert a new record in to the conversations table in the sqlite3 database. input variables will be userID, tourID, and conversationName
-def create_conversation(userID: str, tourID: str, conversationName: str):
-    # create a connection to the database
-    connection = connect("./instance/sqlite.db")
-    cursor = connection.cursor()
+def create_conversation(userID: str, tourID: str):
 
-    # create a new conversationID
-    conversationID = str(uuid4())
+    # create a new Conversation model to use
+    conversation = Conversation.create(user_id=userID, pdf_id=tourID)
 
-    # insert the new conversation into the database. if table doesn't exist, create it. if something fails set the message to 'failt to create conversation'
-    try:
-        cursor.execute("CREATE TABLE IF NOT EXISTS conversations (conversationID TEXT PRIMARY KEY, conversationName TEXT, userID TEXT, tourID TEXT)")
-        cursor.execute("INSERT INTO conversations (conversationID, conversationName, userID, tourID) VALUES (?, ?, ?, ?)", (conversationID, conversationName, userID, tourID))
-    except:
-        return "Failed to create conversation"
-
-
-    # commit the changes and close the connection
-    connection.commit()
-    connection.close()
-
-    # set the message to the conversation name
-    message = f"Conversation created with ID: {conversationID}"
-    
-
-    # return the message
-    return message
+    return conversation.as_dict()
 #----------------------------------------------------------------------------------------
 # get the conversation name from the conversationID
 def get_conversation_name(conversationID: str):

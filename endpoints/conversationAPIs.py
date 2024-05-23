@@ -13,7 +13,7 @@ class NewConversation(BaseModel):
 #----POST new conversation--------------------------------------
 @router.post("/new_conversation/")
 def new_conversation(newConversation: NewConversation):
-    message = conversations.create_conversation(newConversation.userID, newConversation.tourID, newConversation.conversationName)
+    message = conversations.create_conversation(newConversation.userID, newConversation.tourID)
     return message
 
 
