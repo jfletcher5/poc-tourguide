@@ -6,9 +6,9 @@ router = APIRouter()
 
 # create class for new conversation
 class NewConversation(BaseModel):
-    conversationName: str
-    userID: str
     tourID: str
+    userID: str
+
 
 #----POST new conversation--------------------------------------
 @router.post("/new_conversation/")

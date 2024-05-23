@@ -5,11 +5,10 @@ from web.db.models import Conversation
 
 
 # instert a new record in to the conversations table in the sqlite3 database. input variables will be userID, tourID, and conversationName
-def create_conversation(userID: str, tourID: str, app_config):
-
+def create_conversation(userID: str, tourID: str):
+    
     # create a new Conversation model to use
     conversation = Conversation.create(user_id=userID, pdf_id=tourID)
-
 
     return conversation.as_dict()
 

@@ -36,11 +36,16 @@ def delete_tour(tourID: str):
 
 #----upload a file to create a tour--------------------------------------
 @router.post("/upload_file/")
-def upload_file(lookup: str, file: UploadFile = File(...)):
+def upload_file(label: str, file: UploadFile = File(...), desc: str = "", category: str = ""):
     #store file in tours folder
     with open(f"./tours/{file.filename}", "wb") as f:
         f.write(file.file.read())
 
-    tours.create_embeddings_with_pdf(lookup, f"./tours/{file.filename}")
+    new_tour = tours.create_tour(label, file.filename, desc, category)
+    # new_tour will return as a json. I want to get the tourID from the new_tour
+    tourID = new_tour["tourID"]
+
+
+    message = tours.create_embeddings_with_pdf(tourID, f"./tours/{file.filename}")
     
-    return {"filename": file.filename}
+    return {"message": message, "new_tour": new_tour}

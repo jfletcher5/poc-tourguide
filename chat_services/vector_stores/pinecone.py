@@ -6,7 +6,7 @@ from langchain_community.vectorstores import Pinecone
 from chat_services.embeddings.openai import embeddings
 
 # Initialize Pinecone
-# pc = myPinecone(api_key=os.environ.get("PINECONE_API_KEY"))
+#pc = myPinecone(api_key=os.environ.get("PINECONE_API_KEY"))
 
 # Create if it doesn't exist
 # if "try2" not in pc.list_indexes().names():

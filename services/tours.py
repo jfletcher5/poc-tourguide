@@ -1,3 +1,4 @@
+import sqlite3
 from sqlite3 import connect
 from uuid import uuid4
 from services.create_embeddings import create_embeddings_for_pdf
@@ -6,14 +7,14 @@ from services.create_embeddings import create_embeddings_for_pdf
 
 #----------------------------------------------------------------------------------------
 # create service to consume a filename string and run create_embeddings_for_pdf
-def create_embeddings_with_pdf(lookup: str, filename: str):
+def create_embeddings_with_pdf(label: str, filename: str):
     
-    create_embeddings_for_pdf(lookup, filename)
+    create_embeddings_for_pdf(label, filename)
 
-    return {"message": f"Embeddings for {filename} created successfully with a lookup of {lookup}"}
+    return {"message": f"Embeddings for {filename} created successfully with a lookup of {label}"}
 
 # insert a new record in to the tours table in the sqlite3 database. input variables will be tourName, tourDescription, and tourCategory
-def create_tour(tourName: str, tourDescription: str, tourCategory: str):
+def create_tour(tourName: str, file_path: str, tourDescription: str, tourCategory: str):
     # create a connection to the database
     connection = connect("./instance/sqlite.db")
     cursor = connection.cursor()
@@ -23,18 +24,20 @@ def create_tour(tourName: str, tourDescription: str, tourCategory: str):
 
     # insert the new tour into the database. if table doesn't exist, create it. if something fails set the message to 'failt to create tour'
     try:
-        cursor.execute("CREATE TABLE IF NOT EXISTS tours (tourID TEXT PRIMARY KEY, tourName TEXT, tourDescription TEXT, tourCategory TEXT, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)")
-        cursor.execute("INSERT INTO tours (tourID, tourName, tourDescription, tourCategory) VALUES (?, ?, ?, ?)", (tourID, tourName, tourDescription, tourCategory))
-    except:
-        return "Failed to create tour"
+        cursor.execute("CREATE TABLE IF NOT EXISTS tours (tourID TEXT PRIMARY KEY, tourName TEXT, file_path TEXT, tourDescription TEXT, tourCategory TEXT, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)")
+        cursor.execute("INSERT INTO tours (tourID, tourName, file_path, tourDescription, tourCategory) VALUES (?, ?, ?, ?, ?)", (tourID, tourName, file_path, tourDescription, tourCategory))
+    except sqlite3.Error as e:
+        # add the reason for the connection failure
+
+        return f"Failed to create tour \n {e}"
 
 
     # commit the changes and close the connection
     connection.commit()
     connection.close()
 
-    # set the message to the conversation name
-    message = f"Tour created with ID: {tourID, tourName, tourDescription, tourCategory}"
+    # set the message to return this information in a json tourID, tourName, file_path, tourDescription, tourCategory
+    message = {"tourID": tourID, "tourName": tourName, "file_path": file_path, "tourDescription": tourDescription, "tourCategory": tourCategory}
     
 
     # return the message

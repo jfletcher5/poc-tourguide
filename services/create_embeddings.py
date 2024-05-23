@@ -24,7 +24,8 @@ def create_embeddings_for_pdf(lookup: str, pdf_path: str):
         doc.metadata = {
             "page": doc.metadata["page"],
             "text": doc.page_content,
-            "lookup": lookup
+            "filename": pdf_path,
+            "db.id": lookup
         }
 
     vector_store.add_documents(docs)
