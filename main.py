@@ -1,11 +1,5 @@
-from fastapi import FastAPI, File, UploadFile
-from pydantic import BaseModel
-from services import conversations, messages, users, tours
+from fastapi import FastAPI
 from endpoints import conversationAPIs, messagesAPIs, userAPIs, tourAPIs
-import logging
-import shutil
-from datetime import datetime
-from typing import Optional
 from fastapi.responses import FileResponse
 from services.create_embeddings import create_embeddings_for_pdf
 
