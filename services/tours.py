@@ -6,11 +6,11 @@ from services.create_embeddings import create_embeddings_for_pdf
 
 #----------------------------------------------------------------------------------------
 # create service to consume a filename string and run create_embeddings_for_pdf
-def create_embeddings_with_pdf(filename: str):
+def create_embeddings_with_pdf(lookup: str, filename: str):
     
-    create_embeddings_for_pdf(f"{filename} NAME", filename)
+    create_embeddings_for_pdf(lookup, filename)
 
-    return {"message": f"Embeddings for {filename} created successfully"}
+    return {"message": f"Embeddings for {filename} created successfully with a lookup of {lookup}"}
 
 # insert a new record in to the tours table in the sqlite3 database. input variables will be tourName, tourDescription, and tourCategory
 def create_tour(tourName: str, tourDescription: str, tourCategory: str):

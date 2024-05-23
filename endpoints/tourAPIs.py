@@ -36,11 +36,11 @@ def delete_tour(tourID: str):
 
 #----upload a file to create a tour--------------------------------------
 @router.post("/upload_file/")
-def upload_file(file: UploadFile = File(...)):
+def upload_file(lookup: str, file: UploadFile = File(...)):
     #store file in tours folder
     with open(f"./tours/{file.filename}", "wb") as f:
         f.write(file.file.read())
 
-    tours.create_embeddings_with_pdf(f"./tours/{file.filename}")
+    tours.create_embeddings_with_pdf(lookup, f"./tours/{file.filename}")
     
     return {"filename": file.filename}
