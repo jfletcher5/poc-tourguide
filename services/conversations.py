@@ -1,16 +1,21 @@
 from sqlite3 import connect
 from uuid import uuid4
 from web.db.models import Conversation
+from fastapi import Depends
+from web.db.models import AsyncSession
 
+
+@app.on_event("startup")
+async def on_startup():
+    await init_db()
 
 
 # instert a new record in to the conversations table in the sqlite3 database. input variables will be userID, tourID, and conversationName
-def create_conversation(userID: str, tourID: str):
-    
-    # create a new Conversation model to use
+def create_conversation(userID: int, tourID: int, session: AsyncSession = Depends(get_session)):
     conversation = Conversation.create(user_id=userID, pdf_id=tourID)
-
-    return conversation.as_dict()
+    db.add(conversation)
+    db.commit()
+    return conversation
 
 
 #----------------------------------------------------------------------------------------

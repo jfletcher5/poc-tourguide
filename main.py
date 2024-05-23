@@ -2,10 +2,15 @@ from fastapi import FastAPI
 from endpoints import conversationAPIs, messagesAPIs, userAPIs, tourAPIs
 from fastapi.responses import FileResponse
 from services.create_embeddings import create_embeddings_for_pdf
+from web.db.database import init_db
 
 
 # create the fastapi app
 app = FastAPI()
+
+@app.lifespan("startup")
+async def on_startup():
+    await init_db()
 
 
 app.include_router(tourAPIs.router, tags=["Tours"], prefix="/tours")
