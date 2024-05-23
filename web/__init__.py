@@ -1,15 +1,14 @@
 from flask import Flask
 from flask_cors import CORS
 
-from app.web.db import db, init_db_command
-from app.web.db import models
-from app.celery import celery_init_app
-from app.web.config import Config
-from app.web.hooks import load_logged_in_user, handle_error, add_headers
-from app.web.views import (
+from web.db import db, init_db_command
+from web.db import models
+from celery import celery_init_app
+from web.config import Config
+from web.hooks import load_logged_in_user, handle_error, add_headers
+from web.views import (
     auth_views,
     pdf_views,
-    score_views,
     client_views,
     conversation_views,
 )
@@ -37,7 +36,6 @@ def register_extensions(app):
 def register_blueprints(app):
     app.register_blueprint(auth_views.bp)
     app.register_blueprint(pdf_views.bp)
-    app.register_blueprint(score_views.bp)
     app.register_blueprint(conversation_views.bp)
     app.register_blueprint(client_views.bp)
 
