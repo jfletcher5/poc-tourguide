@@ -1,21 +1,19 @@
 from sqlite3 import connect
-from uuid import uuid4
-from web.db.models import Conversation
+from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import Depends
-from web.db.models import AsyncSession
-
-
-@app.on_event("startup")
-async def on_startup():
-    await init_db()
+from uuid import uuid4
+from web.db.database import get_db
+from web.db.models import Conversation
 
 
 # instert a new record in to the conversations table in the sqlite3 database. input variables will be userID, tourID, and conversationName
-def create_conversation(userID: int, tourID: int, session: AsyncSession = Depends(get_session)):
-    conversation = Conversation.create(user_id=userID, pdf_id=tourID)
-    db.add(conversation)
+async def create_conversation(conversationName: str, userID: str, tourID: str, db: AsyncSession = Depends(get_db)):
+    db = get_db()
+    new_conversation = Conversation.create(converationName=conversationName, userID=userID, tourID=tourID)
+    db.add(new_conversation)
     db.commit()
-    return conversation
+    db.refresh(new_conversation)
+    return new_conversation
 
 
 #----------------------------------------------------------------------------------------

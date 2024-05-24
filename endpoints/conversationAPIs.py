@@ -6,14 +6,14 @@ router = APIRouter()
 
 # create class for new conversation
 class NewConversation(BaseModel):
-    tourID: str
+    conversationName: str
     userID: str
-
+    tourID: str
 
 #----POST new conversation--------------------------------------
 @router.post("/new_conversation/")
 def new_conversation(newConversation: NewConversation):
-    message = conversations.create_conversation(newConversation.userID, newConversation.tourID)
+    message = conversations.create_conversation(NewConversation.conversationName, newConversation.userID, newConversation.tourID)
     return message
 
 
