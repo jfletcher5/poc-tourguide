@@ -1,7 +1,7 @@
 import datetime
 import uuid
 from sqlalchemy import Column, DateTime, Integer, String
-from web.db.database import Base
+from web.db.models.database import Base
 
 
 

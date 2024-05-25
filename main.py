@@ -1,7 +1,7 @@
 # app/main.py
 from fastapi import FastAPI
-from web.db.database import engine, Base
-from .endpoints import api_router
+from web.db.models.database import engine, Base
+from endpoints import api_router
 
 app = FastAPI()
 

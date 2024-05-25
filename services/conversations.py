@@ -1,13 +1,14 @@
 from sqlite3 import connect
-from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import Depends
 from uuid import uuid4
-from web.db.database import get_db
+from web.db.models.database import get_db
 from web.db.models import Conversation
+from sqlalchemy.orm import Session
+from web.db.models.database import SessionLocal, engine, Base
 
 
 # instert a new record in to the conversations table in the sqlite3 database. input variables will be userID, tourID, and conversationName
-async def create_conversation(conversationName: str, userID: str, tourID: str, db: AsyncSession = Depends(get_db)):
+async def create_conversation(conversationName: str, userID: str, tourID: str, db: Session = Depends(get_db)):
     db = get_db()
     new_conversation = Conversation.create(converationName=conversationName, userID=userID, tourID=tourID)
     db.add(new_conversation)
