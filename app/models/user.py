@@ -7,7 +7,7 @@ from app.db import Base
 
 class User(Base):
     
-    __tablename__ = "users"
+    __tablename__ = "users_new"
 
     #userID with a default of a random uuid
     userID = Column(String, primary_key=True, index=True)

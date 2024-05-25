@@ -1,23 +1,12 @@
 from fastapi import FastAPI
-from .api import conversationAPIs, messagesAPIs, tourAPIs
-from .db import engine, Base
+from app.api import conversationAPIs, toursAPIs, messagesAPIs
+from app.db import engine, Base
 
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
-app.include_router(conversationAPIs.router, prefix="/api")
-# app.include_router(users_api.router, prefix="/api")
-app.include_router(tourAPIs.router, prefix="/api")
-app.include_router(messagesAPIs.router, prefix="/api")
-
-
-#when this file is run I want to call the function create_embeddings_for_pdf with "testpdf", "bostonfacts.pdf"
-
-# if __name__ == "__main__":
-    
-#     #create_embeddings_for_pdf("newsource", "bostonfacts.pdf")
-
-#     pass
-
-
+app.include_router(conversationAPIs.router, prefix="/api/conversations")
+# app.include_router(users_api.router, prefix="/api/users")
+app.include_router(toursAPIs.router, prefix="/api/tours")
+app.include_router(messagesAPIs.router, prefix="/api/messages")

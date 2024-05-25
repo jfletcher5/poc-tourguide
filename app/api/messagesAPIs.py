@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from ..db import SessionLocal
-from ..services.messages import get_messages_by_conversationID, create_message
-from ..schemas import ConversationCreate, Message
+from ..services.messages import create_message
+from ..schemas import Message
 from pydantic import BaseModel
 
 router = APIRouter()

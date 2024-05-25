@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from ..models.tours import Tour
 from ..schemas import TourCreate
 from pydantic import BaseModel
-from services.create_embeddings import create_embeddings_for_pdf
+from .create_embeddings import create_embeddings_for_pdf
 
 
 

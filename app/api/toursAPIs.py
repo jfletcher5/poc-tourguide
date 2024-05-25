@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from ..db import SessionLocal
 from ..services.tours import create_tour
-from ..models import Tour
+from ..schemas import TourCreate, Tour
 from pydantic import BaseModel
 
 router = APIRouter()

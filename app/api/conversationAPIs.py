@@ -1,8 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from ..db import SessionLocal
-from ..models import Conversation
-from ..services.conversations import get_conversations, create_conversation
+from ..services.conversations import create_conversation
 from ..schemas import ConversationCreate, Conversation
 from pydantic import BaseModel
 

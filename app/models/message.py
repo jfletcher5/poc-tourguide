@@ -6,13 +6,13 @@ from app.db import Base
 
 class Message(Base):
     
-    __tablename__ = "messages"
+    __tablename__ = "messages_new"
 
     messageID = Column(String, primary_key=True, index=True, default=lambda: str(uuid.uuid4()))
     role = Column(String)
     content = Column(String)
     create_date = Column(DateTime, default=datetime.datetime.utcnow)
-    conversationID = Column(String, foreign_key=True)
+    conversationID = Column(String)
 
     def __repr__(self):
         return f"<Message(messageID={self.messageID}, role={self.role}, content={self.content}, create_date={self.create_date}, conversationID={self.conversationID})>"
