@@ -6,12 +6,12 @@ from app.db import Base
 
 class Message(Base):
     
-    __tablename__ = "messages_new"
+    __tablename__ = "messages"
 
     messageID = Column(String, primary_key=True, index=True, default=lambda: str(uuid.uuid4()))
     role = Column(String)
     content = Column(String)
-    create_date = Column(DateTime, default=datetime.datetime.utcnow)
+    create_date = Column(DateTime, default=datetime.datetime.now(datetime.UTC))
     conversationID = Column(String)
 
     def __repr__(self):

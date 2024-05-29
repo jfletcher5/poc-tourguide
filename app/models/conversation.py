@@ -6,10 +6,10 @@ from app.db import Base
 
 class Conversation(Base):
     
-    __tablename__ = "conversations_new"
+    __tablename__ = "conversations"
 
     conversationID = Column(String, primary_key=True, index=True, default=lambda: str(uuid.uuid4()))
-    create_date = Column(DateTime, default=datetime.datetime.utcnow)
+    create_date = Column(DateTime, default=datetime.datetime.now(datetime.UTC))
     tourID = Column(String)
     conversationName = Column(String)
     userID = Column(String)
