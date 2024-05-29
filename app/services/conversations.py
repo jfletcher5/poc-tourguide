@@ -7,7 +7,7 @@ from pydantic import BaseModel
 
 
 # instert a new record in to the conversations table in the sqlite3 database. input variables will be userID, tourID, and conversationName
-def create_conversation(db: Session, conversation: Conversation): #### I may need to change this input
+def create_conversation(db: Session, conversation: ConversationCreate): #### I may need to change this input
     db_conversation = Conversation(**conversation.model_dump())
     db.add(db_conversation)
     db.commit()

@@ -16,12 +16,13 @@ def get_db():
 
 # create class for new message
 class NewMessage(BaseModel):
-    conversationID: str
     role: str
     content: str
+    conversationID: str
+    
 
 # post request to add a new message to a converstation. app will submit the message prompt from the user and the conversationID
-@router.post("/new_message/", response_model=list[Message], description="Create a new message", name='new message')
+@router.post("/new_message/", description="Create a new message", name='new message')
 def new_message(newMessage: NewMessage, db: Session = Depends(get_db)):
-    message = create_message(db, NewMessage)
+    message = create_message(db, newMessage)
     return message

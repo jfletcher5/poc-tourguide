@@ -20,8 +20,11 @@ def create_tour(db: Session, tour: TourCreate): #### I may need to change this i
 #----------------------------------------------------------------------------------------
 
 # create service to consume a filename string and run create_embeddings_for_pdf
-def create_embeddings_with_pdf(label: str, filename: str):
+def create_embeddings_with_pdf(label: str, file_path: str):
     
-    create_embeddings_for_pdf(label, filename)
+    try:
+        result = create_embeddings_for_pdf(label, file_path)
+    except Exception as e:
+        return {"message": f"Error: {e}"}
 
     return {"message": f"Embeddings for {filename} created successfully with a lookup of {label}"}

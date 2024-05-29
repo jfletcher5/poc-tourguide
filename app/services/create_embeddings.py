@@ -11,21 +11,21 @@ from chat_services.vector_stores.pinecone import vector_store
 from chat_services.embeddings.openai import embeddings
 
 
-def create_embeddings_for_pdf(lookup: str, pdf_path: str):
+def create_embeddings_for_pdf(label: str, file_path: str):
     text_splitter = CharacterTextSplitter(
         chunk_size=500,
         chunk_overlap=100
     )
 
-    loader = PyPDFLoader(pdf_path)
+    loader = PyPDFLoader(file_path)
     docs = loader.load_and_split(text_splitter)
 
     for doc in docs:
         doc.metadata = {
             "page": doc.metadata["page"],
             "text": doc.page_content,
-            "filename": pdf_path,
-            "db.id": lookup
+            "filename": file_path,
+            "label": label
         }
 
     vector_store.add_documents(docs)
