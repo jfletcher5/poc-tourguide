@@ -4,6 +4,7 @@ from ..db import SessionLocal
 from ..services.tours import create_tour
 from ..schemas import TourCreate, Tour
 from pydantic import BaseModel
+from app.models import Tour
 
 router = APIRouter()
 
@@ -21,7 +22,7 @@ class NewTour(BaseModel):
 
 #----POST new tour--------------------------------------
 #include a file upload url
-@router.post("/new_tour/", response_model=list[Tour], description="Create a new tour", name='new tour')
+@router.post("/new_tour/", description="Create a new tour record in the database", name='new tour')
 def new_tour(newTour: NewTour, db: Session = Depends(get_db)):
-    message = create_tour(db, NewTour)
+    message = create_tour(db, newTour)
     return message
