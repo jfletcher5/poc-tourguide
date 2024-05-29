@@ -27,4 +27,4 @@ def create_embeddings_with_pdf(label: str, file_path: str):
     except Exception as e:
         return {"message": f"Error: {e}"}
 
-    return {"message": f"Embeddings for {filename} created successfully with a lookup of {label}"}
+    return {"message": f"Embeddings for {file_path} created successfully with a lookup of {label}"}

@@ -39,6 +39,25 @@ def new_tour_with_pdf(tourID: str, file: UploadFile = File(...), db: Session = D
     message2 = create_embeddings_with_pdf(tourID, file_path)
     return message2
 
+#----GET tours by tourID--------------------------------------
+@router.get("/get_tour/{tourID}", description="Get tour by tourID", name='get tour by id')
+def get_tour(tourID: str, db: Session = Depends(get_db)):
+    tour = db.query(Tour).filter(Tour.tourID == tourID).first()
+    if tour is None:
+        raise HTTPException(status_code=404, detail="Tour not found")
+    return tour
+
+#----delete tours by tourID--------------------------------------
+@router.delete("/delete_tour/{tourID}", description="Delete tour by tourID", name='delete tour by id')
+def delete_tour(tourID: str, db: Session = Depends(get_db)):
+    tour = db.query(Tour).filter(Tour.tourID == tourID).first()
+    if tour is None:
+        raise HTTPException(status_code=404, detail="Tour not found")
+    db.delete(tour)
+    db.commit()
+    return tour
+
+
 
 
 
