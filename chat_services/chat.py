@@ -1,4 +1,4 @@
-from langchain_community.chat_models import ChatOpenAI
+from langchain_openai import ChatOpenAI
 from chat_services.models import ChatArgs
 from chat_services.vector_stores.pinecone import build_retriever
 from chat_services.llms.chaopenai import build_llm
@@ -11,9 +11,11 @@ def build_chat(chat_args: ChatArgs):
     condense_question_llm=ChatOpenAI(streaming=False)
     memory = build_memory(chat_args)
 
-    return StreamingConversationalRetrievalChain.from_llm(
+    chat = StreamingConversationalRetrievalChain(
+        retriever=retriever,
         llm=llm,
         condense_question_llm=condense_question_llm,
         memory=memory,
-        retriever=retriever
-    ) 
+    )
+
+    return chat
