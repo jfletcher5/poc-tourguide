@@ -1,7 +1,7 @@
 from flask import current_app
 from queue import Queue
 from threading import Thread
-from callbacks.stream import StreamingHandler
+from chat_services.callbacks.stream import StreamingHandler
 
 class StreamableChain:
     def stream(self, input):

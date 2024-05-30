@@ -1,12 +1,12 @@
 from langchain_core.messages import BaseMessage
 from pydantic import BaseModel
-from langchain.memory import ConversationBufferMemory, BaseChatMessageHistory
+from langchain.memory import ConversationBufferMemory
 from app.services.messages import (
     get_messages_by_conversationID as get_messages_by_conversation_id,
     create_message as add_message_to_conversation
 )
 
-class SqlMessageHistory(BaseChatMessageHistory, BaseModel):
+class SqlMessageHistory(BaseModel):
     conversation_id: str
 
     @property
