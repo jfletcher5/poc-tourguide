@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from ..db import SessionLocal
-from ..services.pinecone_service import delete_vectors_by_metadata
+from ..services.pinecone_service import delete_vectors_by_index
 from pydantic import BaseModel
 
 router = APIRouter()
@@ -13,12 +13,12 @@ def get_db():
         db.close()
 
 class DefaultValues(BaseModel):
-    metadata_filter: str = "c6fc4dda-19aa-4b97-a5ea-fd163da0eefc"
+    indexName: str = "testIndex"
 
-#----delete vectors by filter criteria--------------------------------------
-@router.delete("/delete_vectors_by_metadata", description="Delete vectors by metadata", name='delete vectors by metadata', tags=["Pinecone"])
+#----delete vectors by index--------------------------------------
+@router.delete("/delete_vectors_by_index", description="Delete vectors by index", name='delete vectors by index', tags=["Pinecone"])
 def delete_vectors_by_metadata_route(indexInfo: DefaultValues):
-    results = delete_vectors_by_metadata(indexInfo.metadata_filter)
+    results = delete_vectors_by_index(indexInfo.indexName)
     return results
 
     
