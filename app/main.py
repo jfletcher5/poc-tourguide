@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.api import conversationAPIs, toursAPIs, messagesAPIs
+from app.api import conversationAPIs, toursAPIs, messagesAPIs, pineconeAPIs
 from app.db import engine, Base
 
 # Import models to ensure they are registered with SQLAlchemy
@@ -14,3 +14,4 @@ app.include_router(toursAPIs.router, prefix="/api/tours")
 app.include_router(conversationAPIs.router, prefix="/conversations")
 # app.include_router(usersAPIs.router, prefix="/api/users")
 app.include_router(messagesAPIs.router, prefix="/messages")
+app.include_router(pineconeAPIs.router, prefix="/pinecone")
