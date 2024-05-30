@@ -14,4 +14,8 @@ def create_message(db: Session, message: MessageCreate): #### I may need to chan
     db.commit()
     db.refresh(db_message)
     return db_message
+
+def get_messages_by_conversationID(db: Session, conversationID: str):
+    messages = db.query(Message).filter(Message.conversationID == conversationID).all()
+    return messages
     

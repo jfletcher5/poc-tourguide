@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from ..db import SessionLocal
-from ..services.messages import create_message
+from ..services.messages import create_message, get_messages_by_conversationID
 # from ..schemas import Message
 from pydantic import BaseModel
 from app.models import Message
@@ -31,7 +31,7 @@ def new_message(newMessage: NewMessage, db: Session = Depends(get_db)):
 # get messages by conversationID
 @router.get("/get_messages/{conversationID}", description="Get messages by conversationID", name='get messages by conversation', tags=["Messages"])
 def get_messages(conversationID: str, db: Session = Depends(get_db)):
-    messages = db.query(Message).filter(Message.conversationID == conversationID).all()
+    messages = get_messages_by_conversationID(db, conversationID)
     return messages
 
 # delete message by messageID

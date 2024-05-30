@@ -1,9 +1,9 @@
 from langchain_core.messages import BaseMessage
 from pydantic import BaseModel
-from langchain_community.memory import ConversationBufferMemory, BaseChatMessageHistory
-from endpoints.messagesAPIs import (
+from langchain.memory import ConversationBufferMemory, BaseChatMessageHistory
+from app.services.messages import (
     get_messages_by_conversationID as get_messages_by_conversation_id,
-    new_message as add_message_to_conversation
+    create_message as add_message_to_conversation
 )
 
 class SqlMessageHistory(BaseChatMessageHistory, BaseModel):
