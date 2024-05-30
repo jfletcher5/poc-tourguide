@@ -23,19 +23,19 @@ class NewMessage(BaseModel):
     
 
 # post request to add a new message to a converstation. app will submit the message prompt from the user and the conversationID
-@router.post("/new_message/", description="Create a new message", name='new message in conversation')
+@router.post("/new_message/", description="Create a new message", name='new message in conversation', tags=["Messages"])
 def new_message(newMessage: NewMessage, db: Session = Depends(get_db)):
     message = create_message(db, newMessage)
     return message
 
 # get messages by conversationID
-@router.get("/get_messages/{conversationID}", description="Get messages by conversationID", name='get messages by conversation')
+@router.get("/get_messages/{conversationID}", description="Get messages by conversationID", name='get messages by conversation', tags=["Messages"])
 def get_messages(conversationID: str, db: Session = Depends(get_db)):
     messages = db.query(Message).filter(Message.conversationID == conversationID).all()
     return messages
 
 # delete message by messageID
-@router.delete("/delete_message/{messageID}", description="Delete message by messageID", name='delete message')
+@router.delete("/delete_message/{messageID}", description="Delete message by messageID", name='delete message', tags=["Messages"])
 def delete_message(messageID: str, db: Session = Depends(get_db)):
     message = db.query(Message).filter(Message.messageID == messageID).first()
     if message is None:

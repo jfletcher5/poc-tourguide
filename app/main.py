@@ -10,7 +10,7 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
-app.include_router(toursAPIs.router, prefix="/api/tours")
-app.include_router(conversationAPIs.router, prefix="/api/conversations")
+app.include_router(toursAPIs.router, prefix="/tours")
+app.include_router(conversationAPIs.router, prefix="/conversations")
 # app.include_router(usersAPIs.router, prefix="/api/users")
-app.include_router(messagesAPIs.router, prefix="/api/messages")
+app.include_router(messagesAPIs.router, prefix="/messages")
