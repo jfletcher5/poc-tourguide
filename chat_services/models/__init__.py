@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import Optional
 
 
 class Metadata(BaseModel, extra='allow'):
@@ -13,3 +14,4 @@ class ChatArgs(BaseModel, extra='allow'):
     tourID: str
     metadata: Metadata
     streaming: bool
+    k: Optional[int] = None

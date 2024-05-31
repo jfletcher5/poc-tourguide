@@ -11,9 +11,11 @@ vector_store = Pinecone(
     # namespace=namespace,
 )
 
+# take in the vstore label and k value and return the retriever for queries
 def build_retriever(chat_args):
     search_kwargs = {
         "filter": { "label": chat_args.tourID },
+        'k': chat_args.k,
         }
     return vector_store.as_retriever(
         search_kwargs=search_kwargs

@@ -5,6 +5,7 @@ from chat_services.llms.chaopenai import build_llm
 from chat_services.memories.sql_memory import build_memory
 from chat_services.chains.retrieval import StreamingConversationalRetrievalChain
 
+# use this to build a chat and pass in the vector store as retriever, the llm to use, how to manage the conversation and the memory. then build the chat object with a chat
 def build_chat(chat_args: ChatArgs):
     retriever = build_retriever(chat_args) # this works
     llm = build_llm(chat_args) # this works
