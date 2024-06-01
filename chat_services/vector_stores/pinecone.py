@@ -16,7 +16,9 @@ def build_retriever(chat_args):
     search_kwargs = {
         "filter": { "label": chat_args.tourID },
         'k': chat_args.k,
+        'score_threshold': chat_args.score_threshold,
         }
     return vector_store.as_retriever(
+        search_type= "similarity_score_threshold",
         search_kwargs=search_kwargs
     )

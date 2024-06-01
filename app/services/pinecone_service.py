@@ -23,3 +23,11 @@ def delete_vectors_by_index(metadata_filter: str):
 
     return f'all vectors in {metadata_filter} deleted'
 
+# def method to get documents by query from the pinecone index
+def get_docs_by_query(query: str):
+    
+    retriever = vector_store.as_retriever()
+    results = retriever.invoke(query)
+    
+    return results
+

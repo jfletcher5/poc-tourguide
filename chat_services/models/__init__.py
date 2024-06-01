@@ -15,3 +15,4 @@ class ChatArgs(BaseModel, extra='allow'):
     metadata: Metadata
     streaming: bool
     k: Optional[int] = None
+    score_threshold: Optional[float] = None

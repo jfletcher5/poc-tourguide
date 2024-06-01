@@ -13,10 +13,6 @@ from langchain_pinecone import Pinecone
 
 def create_embeddings_for_pdf(label: str, file_path: str):
     text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=100,
-        chunk_overlap=20,
-        length_function=len,
-        is_separator_regex=False,
     )
 
     loader = PyPDFLoader(file_path)
