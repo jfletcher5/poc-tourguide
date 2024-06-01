@@ -4,11 +4,11 @@ import pinecone
 import os
 from dotenv import load_dotenv
 from langchain_text_splitters import CharacterTextSplitter, RecursiveCharacterTextSplitter
-from langchain_community.embeddings import OpenAIEmbeddings
 from langchain_community.document_loaders import TextLoader, PyPDFLoader
-from langchain_community.vectorstores import Pinecone
 from chat_services.vector_stores.pinecone import vector_store
 from chat_services.embeddings.openai import embeddings
+from langchain_openai import OpenAIEmbeddings
+from langchain_pinecone import Pinecone
 
 
 def create_embeddings_for_pdf(label: str, file_path: str):

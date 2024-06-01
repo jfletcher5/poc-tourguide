@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 from ..models.message import Message
 from ..schemas import MessageCreate
 from chat_services.vector_stores.pinecone import build_retriever
-from langchain.schema.messages import AIMessage, HumanMessage, SystemMessage
+from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 
 
 # instert a new record in to the messages table in the sqlite3 database. input variables will be role, content, and conversationID
