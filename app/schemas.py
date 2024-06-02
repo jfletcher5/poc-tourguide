@@ -45,3 +45,19 @@ class Tour(TourBase):
 
     class Config:
         orm_mode = True
+
+class ChainBase(BaseModel):
+    conversation_id: int
+    message_id: int
+    message_type: str
+    message: str
+
+class ChainCreate(ChainBase):
+    pass
+
+class Chain(ChainBase):
+    id: int
+
+    class Config:
+        orm_mode = True
+
