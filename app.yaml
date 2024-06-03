@@ -1,0 +1,10 @@
+runtime: python39
+entrypoint: gunicorn -w 2 -k uvicorn.workers.UvicornWorker main:app
+env: standard
+
+handlers:
+- url: /.*
+  script: auto
+
+env_variables:
+  GCLOUD_PROJECT_ID: "102050822962"

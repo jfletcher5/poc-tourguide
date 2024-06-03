@@ -1,0 +1,16 @@
+fastapi
+uvicorn==0.17.6
+gunicorn==20.1.0
+requests
+pydantic
+openai
+python-dotenv
+google-cloud-secret-manager==2.7.0
+python-multipart
+langchain
+langchain-ai
+langchain-core
+langchain-community
+langchain-openai
+langchain-pinecone
+langchain-text-splitters
