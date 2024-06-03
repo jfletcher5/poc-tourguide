@@ -7,7 +7,7 @@ from langchain_core.chat_history import BaseChatMessageHistory
 
 class SQLChatMessageHistory():
     conversation_id: str
-    connection_string: str = "sqlite:///chat_history.db"
+    connection_string: str = "poc-tourguide:us-central1:sqlite-test-final"
 
 
 
