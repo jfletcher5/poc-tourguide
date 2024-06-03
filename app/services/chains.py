@@ -12,7 +12,7 @@ import os
 
 
 #service to run a chain
-def add_message_to_chain(db: Session, chat_args: ChatArgs, newMessage: str):
+async def add_message_to_chain(db: Session, chat_args: ChatArgs, newMessage: str):
     # code to add a message
     
     session_id = chat_args.conversation_id
@@ -21,8 +21,8 @@ def add_message_to_chain(db: Session, chat_args: ChatArgs, newMessage: str):
     
     db_path = "sqlite:///sqlite_test_final.db" #path to db in env variables
 
-    chat_message_history = SQLChatMessageHistory(
-        session_id=session_id, connection_string=db_path
+    chat_message_history = FirestoreChatMessageHistory(
+        session_id=session_id, collection="chat_history"
     )
     llm = build_llm(chat_args=chat_args)
     retriever = build_retriever(chat_args=chat_args)
@@ -110,8 +110,7 @@ def add_message_to_chain(db: Session, chat_args: ChatArgs, newMessage: str):
 
 
 
-def get_chain_by_conversationID(db: Session, conversation_id: str):
-    
+async def get_chain_by_conversationID(db: Session, conversation_id: str):
     # code to retreive the messages in a chain
     session_id = conversation_id
     PROJECT_ID = os.getenv('GCLOUD_PROJECT_ID')
@@ -122,6 +121,4 @@ def get_chain_by_conversationID(db: Session, conversation_id: str):
 
     messages = store.messages
 
-    print(messages)
-
-    pass
+    return messages

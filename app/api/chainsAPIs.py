@@ -23,7 +23,6 @@ async def create_chain_message(chat_args: ChatArgs, newMessage: str, db: Session
     return result
 
 @router.get("/get_chain_by_conversationID", tags=["Chains"])
-async def get_chain_by_conversationID(conversation_id: str, db: Session = Depends(get_db)):
-    result = get_chain_by_conversationID(db, conversation_id)
-
+async def get_chain_endpoint(conversation_id: str, db: Session = Depends(get_db)):
+    result = await get_chain_by_conversationID(db, conversation_id)
     return result
