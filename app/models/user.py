@@ -13,4 +13,4 @@ class User(Base):
     userID = Column(String, primary_key=True, index=True)
     userName = Column(String)
     email = Column(String)
-    create_date = Column(DateTime, default=datetime.datetime.now(datetime.UTC))
+    # create_date = Column(DateTime, default=datetime.datetime.now(datetime.UTC))

@@ -8,9 +8,10 @@ python-dotenv
 google-cloud-secret-manager==2.7.0
 python-multipart
 langchain
-langchain-ai
 langchain-core
 langchain-community
 langchain-openai
 langchain-pinecone
 langchain-text-splitters
+sqlalchemy
+uuid
