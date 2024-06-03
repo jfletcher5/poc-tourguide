@@ -11,7 +11,7 @@ class Message(Base):
     messageID = Column(String, primary_key=True, index=True, default=lambda: str(uuid.uuid4()))
     role = Column(String)
     content = Column(String)
-    create_date = Column(DateTime, default=datetime.datetime.now(datetime.UTC))
+    create_date = Column(DateTime, default=datetime.datetime.now(datetime.timezone.utc))
     conversationID = Column(String)
 
     def __repr__(self):
