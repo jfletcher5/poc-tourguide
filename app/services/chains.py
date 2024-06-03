@@ -1,15 +1,14 @@
 from sqlalchemy.orm import Session
-from ..models.chains import Chain
-from ..schemas import ChainCreate
 from chat_services.vector_stores.pinecone import build_retriever
 from chat_services.llms import build_llm
-from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 from chat_services.models import ChatArgs
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.runnables.history import RunnableWithMessageHistory
+from langchain_google_firestore import FirestoreChatMessageHistory
 from langchain_community.chat_message_histories import SQLChatMessageHistory
 from langchain.chains import create_retrieval_chain, create_history_aware_retriever
+import os
 
 
 #service to run a chain
@@ -17,6 +16,9 @@ def add_message_to_chain(db: Session, chat_args: ChatArgs, newMessage: str):
     # code to add a message
     
     session_id = chat_args.conversation_id
+    PROJECT_ID = os.getenv('GCLOUD_PROJECT_ID')
+    # Set the project id
+    
     db_path = "sqlite:///sqlite_test_final.db" #path to db in env variables
 
     chat_message_history = SQLChatMessageHistory(
@@ -70,8 +72,8 @@ def add_message_to_chain(db: Session, chat_args: ChatArgs, newMessage: str):
 
     conversational_rag_chain = RunnableWithMessageHistory(
         rag_chain,
-        lambda session_id: SQLChatMessageHistory(
-            session_id=session_id, connection_string=db_path
+        lambda session_id: FirestoreChatMessageHistory(
+            session_id=session_id, collection="chat_history"
         ),
         input_messages_key="input",
         history_messages_key="chat_history",
@@ -111,5 +113,15 @@ def add_message_to_chain(db: Session, chat_args: ChatArgs, newMessage: str):
 def get_chain_by_conversationID(db: Session, conversation_id: str):
     
     # code to retreive the messages in a chain
+    session_id = conversation_id
+    PROJECT_ID = os.getenv('GCLOUD_PROJECT_ID')
+
+    store = FirestoreChatMessageHistory(
+        session_id=session_id, collection="chat_history"
+    )
+
+    messages = store.messages
+
+    print(messages)
 
     pass

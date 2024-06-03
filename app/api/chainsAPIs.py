@@ -18,6 +18,12 @@ def get_db():
 
 @router.post("/add_message_to_chain", tags=["Chains"])
 async def create_chain_message(chat_args: ChatArgs, newMessage: str, db: Session = Depends(get_db)):
-    result = add_message_to_chain(db,chat_args, newMessage)
+    result = add_message_to_chain(db, chat_args, newMessage)
+
+    return result
+
+@router.get("/get_chain_by_conversationID", tags=["Chains"])
+async def get_chain_by_conversationID(conversation_id: str, db: Session = Depends(get_db)):
+    result = get_chain_by_conversationID(db, conversation_id)
 
     return result
