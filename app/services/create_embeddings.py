@@ -1,7 +1,5 @@
 # Description: This file contains the code to create embeddings from a file and store them in a pinecone vector store
 
-import pinecone
-import os
 from dotenv import load_dotenv
 from langchain_text_splitters import CharacterTextSplitter, RecursiveCharacterTextSplitter
 from langchain_experimental.text_splitter import SemanticChunker

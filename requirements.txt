@@ -13,5 +13,7 @@ langchain-community
 langchain-openai
 langchain-pinecone
 langchain-text-splitters
+langchain-experimental
 sqlalchemy
 uuid
+flask
